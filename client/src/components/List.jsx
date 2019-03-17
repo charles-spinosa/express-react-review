@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import ListEntry from './ListEntry';
 
@@ -21,12 +22,36 @@ class List extends Component {
   }
 
   getTodos() {
+    axios
+      .get('/api')
+      .then(response => {
+        console.log(response);
+        this.setState({todos: response.data})
+      })
+      .catch(error => console.log(error));
   }
 
   postTodo(todo) {
+    axios
+      .post('/api', {todo})
+      .then(res => {
+        console.log(res);
+        this.setState(
+          {todos: res.data}
+        );
+      })
+      .catch(err => console.log(err));
   }
 
   deleteTodo(index) {
+    axios
+      .delete('/api', {params: {index}})
+      .then(res => {
+        this.setState({
+          todos: res.data
+        });
+      })
+      .catch(err => console.log(err));
   }
 
   handleChange(event) {
