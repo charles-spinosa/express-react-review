@@ -36,8 +36,10 @@ class List extends Component {
       .post('/api', {todo})
       .then(res => {
         console.log(res);
-        this.setState(
-          {todos: res.data}
+        this.setState({
+          todos: res.data,
+          todo: ''
+        }
         );
       })
       .catch(err => console.log(err));
